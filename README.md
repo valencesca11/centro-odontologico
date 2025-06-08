@@ -29,8 +29,14 @@ https://github.com/valencesca11/centro-odontologico
    - **Usuario:** `root`
    - **Contraseña:** `1234`
 
-3. Ir a `File > Open SQL Script...` y seleccionar el archivo `Dump20250608.sql` descargado.
-4. Ejecutar el script completo con el botón **Run** (⚡) o presionar `Ctrl + Shift + Enter`.
+3. Ir a File > Open SQL Script... y seleccionar el archivo Dump20250608.sql descargado.
+4.  Crear la base de datos 
+CREATE DATABASE odontologia;
+USE odontologia;
+5. Ejecutar el script completo con el botón Run o presionar `Ctrl + Shift + Enter`.
+Esto creará todas las tablas necesarias y poblará la base de datos con la información requerida.
+6. Hacer click en refresh al lado de Schemas
+
 
 Esto creará todas las tablas necesarias y poblará la base de datos con la información requerida.
 
