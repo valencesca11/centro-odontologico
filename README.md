@@ -58,3 +58,8 @@ El sistema debería ejecutarse correctamente si los pasos fueron seguidos. Asegu
 ### SCOPE DEL PROYECTO
 
 Solamente está desarrollado los botones **Especialidad, Odontologos y Pacientes**.
+
+## Para acceder / iniciar sesión
+
+Usuario: lmartinez
+Contraseña: clave123
