@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OdontologoDetalleModelo {
+
     private int dni;
     private String nombre;
     private String apellido;
@@ -17,9 +18,14 @@ public class OdontologoDetalleModelo {
     private String usuario;
     private String contrasenia;
 
+    private String especialidad;
+    private String dia;
+    private String horario;
+
     public OdontologoDetalleModelo() {
     }
 
+    // Getters y setters existentes
     public int getDni() {
         return dni;
     }
@@ -114,5 +120,30 @@ public class OdontologoDetalleModelo {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    // Nuevos getters y setters para especialidad, dia y horario
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

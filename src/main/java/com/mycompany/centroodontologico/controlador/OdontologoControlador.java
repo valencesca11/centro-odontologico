@@ -1,8 +1,8 @@
 package com.mycompany.centroodontologico.controlador;
 
 import com.mycompany.centroodontologico.vista.OdontologoFrame;
-import com.mycompany.centroodontologico.vista.OdontologoDetalleDialog;
 import com.mycompany.centroodontologico.vista.OdontologoRegistrarDialog;
+import com.mycompany.centroodontologico.vista.OdontologoDetalleDialog; // Se agregó la importación
 import com.mycompany.centroodontologico.modelo.OdontologoDetalleModelo;
 import com.mycompany.centroodontologico.modelo.Odontologo;
 import com.mycompany.centroodontologico.conexion.conexionBD;
@@ -11,15 +11,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.List; // Importación correcta
 import java.util.regex.Pattern;
 
 public class OdontologoControlador {
     private OdontologoFrame vista;
 
     public OdontologoControlador() {
-        List<String> especialidades = Odontologo.obtenerEspecialidadesDisponibles(); // ✅ obtener antes de crear la vista
-        vista = new OdontologoFrame(this, especialidades); // ✅ usar constructor correcto
+        vista = new OdontologoFrame(this, new ArrayList<>()); // Pasamos una lista vacía como segundo parámetro
         cargarOdontologos(null, null);
         agregarEventos();
         vista.setVisible(true);
@@ -51,9 +51,8 @@ public class OdontologoControlador {
         vista.getBtnDetalles().addActionListener(e -> mostrarDetallesOdontologoSeleccionado());
 
         vista.getBtnRegistrar().addActionListener(e -> {
-            List<String> especialidadesDisponibles = Odontologo.obtenerEspecialidadesDisponibles();
-            OdontologoRegistrarDialog registrarDialog = new OdontologoRegistrarDialog(vista, this, especialidadesDisponibles);
-            registrarDialog.setOdontologoGuardadoListener(this::actualizarTabla); // ✅ se actualiza luego de registrar
+            OdontologoRegistrarDialog registrarDialog = new OdontologoRegistrarDialog(vista, this);
+            registrarDialog.setOdontologoGuardadoListener(this::actualizarTabla);
             registrarDialog.setVisible(true);
         });
     }
@@ -99,7 +98,7 @@ public class OdontologoControlador {
             JOIN Especialidad e ON e.OdontologoDNI = o.DNI
             WHERE (? IS NULL OR e.Nombre = ?)
               AND (? IS NULL OR p.Nombre LIKE ? OR p.Apellido LIKE ? OR o.DNI LIKE ?)
-        """;
+        """;  // Query corregido para usar el filtro de manera más flexible.
 
         try (Connection conn = conexionBD.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -116,13 +115,13 @@ public class OdontologoControlador {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    modelo.addRow(new Object[]{
-                            rs.getString("Especialidad"),
-                            rs.getString("Nombre"),
-                            rs.getString("Apellido"),
-                            rs.getInt("DNI"),
-                            rs.getString("Dia"),
-                            rs.getString("Horario")
+                    modelo.addRow(new Object[] {
+                        rs.getString("Especialidad"),
+                        rs.getString("Nombre"),
+                        rs.getString("Apellido"),
+                        rs.getInt("DNI"),
+                        rs.getString("Dia"),
+                        rs.getString("Horario")
                     });
                 }
             }
@@ -133,22 +132,21 @@ public class OdontologoControlador {
         }
     }
 
-private OdontologoDetalleModelo obtenerDetallePorDni(String dni) {
-    try {
-        int dniInt = Integer.parseInt(dni.trim()); // Conversión segura de String a int
-        return Odontologo.obtenerDetalle(dniInt);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(vista, "DNI inválido.");
-        return null;
+    private OdontologoDetalleModelo obtenerDetallePorDni(String dni) {
+        try {
+            int dniInt = Integer.parseInt(dni.trim());  // Conversión segura de String a int
+            return Odontologo.obtenerDetalle(dniInt);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(vista, "DNI inválido.");
+            return null;
+        }
     }
-}
 
-public void actualizarTabla() {
-    System.out.println(">>> Forzando recarga SIN filtros");
-    vista.getCbEspecialidad().setSelectedItem(null);
-    vista.getTxtBuscar().setText("");
-    cargarOdontologos(null, null);
-}
+    public void actualizarTabla() {
+        vista.getCbEspecialidad().setSelectedItem(null);
+        vista.getTxtBuscar().setText("");
+        cargarOdontologos(null, null);
+    }
 
     public boolean crearOdontologo(OdontologoDetalleModelo odontologo) {
         return Odontologo.insertarOdontologo(odontologo);
@@ -160,10 +158,10 @@ public void actualizarTabla() {
             return false;
         }
 
-if (emailExisteParaOtro(modelo.getDni(), modelo.getEmail())) {
-    JOptionPane.showMessageDialog(vista, "El correo electrónico ya está registrado para otro odontólogo.");
-    return false;
-}
+        if (emailExisteParaOtro(modelo.getDni(), modelo.getEmail())) {
+            JOptionPane.showMessageDialog(vista, "El correo electrónico ya está registrado para otro odontólogo.");
+            return false;
+        }
 
         return Odontologo.actualizarOdontologo(modelo);
     }

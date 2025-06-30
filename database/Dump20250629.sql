@@ -30,7 +30,7 @@ CREATE TABLE `especialidad` (
   PRIMARY KEY (`EspecialidadID`),
   KEY `OdontologoDNI` (`OdontologoDNI`),
   CONSTRAINT `especialidad_ibfk_1` FOREIGN KEY (`OdontologoDNI`) REFERENCES `odontologo` (`DNI`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `historialclinica` (
   KEY `OdontologoDNI` (`OdontologoDNI`),
   CONSTRAINT `historialclinica_ibfk_1` FOREIGN KEY (`PacienteID`) REFERENCES `paciente` (`PacienteID`),
   CONSTRAINT `historialclinica_ibfk_2` FOREIGN KEY (`OdontologoDNI`) REFERENCES `odontologo` (`DNI`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `paciente` (
   PRIMARY KEY (`PacienteID`),
   KEY `DNI` (`DNI`),
   CONSTRAINT `paciente_ibfk_1` FOREIGN KEY (`DNI`) REFERENCES `persona` (`DNI`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `pago` (
   PRIMARY KEY (`PagoID`),
   KEY `TurnoID` (`TurnoID`),
   CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`TurnoID`) REFERENCES `turno` (`TurnoID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `turno` (
   CONSTRAINT `turno_ibfk_1` FOREIGN KEY (`PacienteID`) REFERENCES `paciente` (`PacienteID`),
   CONSTRAINT `turno_ibfk_2` FOREIGN KEY (`OdontologoDNI`) REFERENCES `odontologo` (`DNI`),
   CONSTRAINT `turno_ibfk_3` FOREIGN KEY (`SecretariaID`) REFERENCES `secretaria` (`SecretariaID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -198,5 +198,4 @@ CREATE TABLE `turno` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-29 20:57:35
-
+-- Dump completed on 2025-06-29 23:18:02

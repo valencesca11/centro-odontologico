@@ -24,20 +24,39 @@ public class Usuario {
 
     // Método para validar contra la base de datos
     public boolean validar() {
-        String sql = "SELECT * FROM Secretaria WHERE Usuario = ? AND Contrasenia = ?";
+        // Consulta para verificar en la tabla 'Secretaria'
+        String sqlSecretaria = "SELECT * FROM Secretaria WHERE Usuario = ? AND Contrasenia = ?";
+        // Consulta para verificar en la tabla 'Odontologo'
+        String sqlOdontologo = "SELECT * FROM Odontologo WHERE Usuario = ? AND Contrasenia = ?";
 
         try (Connection conn = conexionBD.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmtSecretaria = conn.prepareStatement(sqlSecretaria);
+             PreparedStatement stmtOdontologo = conn.prepareStatement(sqlOdontologo)) {
 
-            stmt.setString(1, usuario);
-            stmt.setString(2, contrasena);
+            // Validación para la tabla 'Secretaria'
+            stmtSecretaria.setString(1, usuario);
+            stmtSecretaria.setString(2, contrasena);
+            ResultSet rsSecretaria = stmtSecretaria.executeQuery();
+            if (rsSecretaria.next()) {
+                // Usuario encontrado en la tabla Secretaria
+                System.out.println("Acceso como Secretaria permitido.");
+                return true;
+            }
 
-            ResultSet rs = stmt.executeQuery();
-            return rs.next(); // true si encontró un usuario válido
+            // Validación para la tabla 'Odontologo'
+            stmtOdontologo.setString(1, usuario);
+            stmtOdontologo.setString(2, contrasena);
+            ResultSet rsOdontologo = stmtOdontologo.executeQuery();
+            if (rsOdontologo.next()) {
+                // Usuario encontrado en la tabla Odontologo
+                System.out.println("Acceso como Odontologo permitido.");
+                return true;
+            }
 
         } catch (Exception e) {
             System.out.println("Error al validar usuario: " + e.getMessage());
-            return false;
         }
+        // Si no se encontró en ninguna de las tablas
+        return false;
     }
 }

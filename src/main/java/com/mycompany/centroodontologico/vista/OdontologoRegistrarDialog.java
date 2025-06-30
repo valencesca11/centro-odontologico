@@ -2,12 +2,14 @@ package com.mycompany.centroodontologico.vista;
 
 import com.mycompany.centroodontologico.controlador.OdontologoControlador;
 import com.mycompany.centroodontologico.modelo.OdontologoDetalleModelo;
+import com.mycompany.centroodontologico.modelo.Odontologo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
+import java.util.Date; // Importamos Date para manejar fechas
 import java.util.List;
 import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
 
 public class OdontologoRegistrarDialog extends JDialog {
 
@@ -16,18 +18,17 @@ public class OdontologoRegistrarDialog extends JDialog {
     private JPasswordField txtContrasena;
     private JRadioButton rbtnMasculino, rbtnFemenino;
     private ButtonGroup generoGroup;
-    private JFormattedTextField txtFechaNacimiento;
-    private JPanel panelEspecialidades;
+    private JFormattedTextField txtFechaNacimiento; // Campo para la fecha de nacimiento
+    private JComboBox<String> cmbEspecialidad, cmbDia, cmbHoraInicio, cmbHoraFin;
     private JButton btnGuardar, btnCancelar;
     private final OdontologoControlador controlador;
-    private JTable tablaHorarios;
     private OdontologoGuardadoListener listener;
 
     public void setOdontologoGuardadoListener(OdontologoGuardadoListener listener) {
         this.listener = listener;
     }
 
-    public OdontologoRegistrarDialog(JFrame parent, OdontologoControlador controlador, List<String> especialidadesDisponibles) {
+    public OdontologoRegistrarDialog(JFrame parent, OdontologoControlador controlador) {
         super(parent, "Registrar Nuevo Odontólogo", true);
         this.controlador = controlador;
 
@@ -42,7 +43,7 @@ public class OdontologoRegistrarDialog extends JDialog {
         int y = 0;
 
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("DNI:"), gbc);
-        gbc.gridx = 1; txtDni = new JTextField(20); panelPrincipal.add(txtDni, gbc); y++;
+        gbc.gridx = 1; txtDni = new JTextField(15); panelPrincipal.add(txtDni, gbc); y++;
 
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Nombre:"), gbc);
         gbc.gridx = 1; txtNombre = new JTextField(20); panelPrincipal.add(txtNombre, gbc); y++;
@@ -51,43 +52,48 @@ public class OdontologoRegistrarDialog extends JDialog {
         gbc.gridx = 1; txtApellido = new JTextField(20); panelPrincipal.add(txtApellido, gbc); y++;
 
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Teléfono:"), gbc);
-        gbc.gridx = 1; txtTelefono = new JTextField(20); panelPrincipal.add(txtTelefono, gbc); y++;
+        gbc.gridx = 1; txtTelefono = new JTextField(15); panelPrincipal.add(txtTelefono, gbc); y++;
 
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Email:"), gbc);
         gbc.gridx = 1; txtEmail = new JTextField(20); panelPrincipal.add(txtEmail, gbc); y++;
 
-        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Fecha de nacimiento:"), gbc);
-        gbc.gridx = 1;
-        txtFechaNacimiento = new JFormattedTextField(java.text.DateFormat.getDateInstance());
-        txtFechaNacimiento.setValue(new Date());
-        txtFechaNacimiento.setColumns(20);
-        panelPrincipal.add(txtFechaNacimiento, gbc); y++;
-
-        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Género:"), gbc);
-        gbc.gridx = 1;
-        JPanel generoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        rbtnMasculino = new JRadioButton("Masculino");
-        rbtnFemenino = new JRadioButton("Femenino");
-        generoGroup = new ButtonGroup();
-        generoGroup.add(rbtnMasculino);
-        generoGroup.add(rbtnFemenino);
-        generoPanel.add(rbtnMasculino);
-        generoPanel.add(rbtnFemenino);
-        panelPrincipal.add(generoPanel, gbc); y++;
-
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Matrícula:"), gbc);
-        gbc.gridx = 1; txtMatricula = new JTextField(20); panelPrincipal.add(txtMatricula, gbc); y++;
+        gbc.gridx = 1; txtMatricula = new JTextField(15); panelPrincipal.add(txtMatricula, gbc); y++;
 
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Usuario:"), gbc);
-        gbc.gridx = 1; txtUsuario = new JTextField(20); panelPrincipal.add(txtUsuario, gbc); y++;
+        gbc.gridx = 1; txtUsuario = new JTextField(15); panelPrincipal.add(txtUsuario, gbc); y++;
 
         gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Contraseña:"), gbc);
-        gbc.gridx = 1; txtContrasena = new JPasswordField(20); panelPrincipal.add(txtContrasena, gbc); y++;
+        gbc.gridx = 1; txtContrasena = new JPasswordField(15); panelPrincipal.add(txtContrasena, gbc); y++;
 
-        // Botones
+        // Campo de fecha de nacimiento
+        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Fecha de Nacimiento:"), gbc);
+        gbc.gridx = 1;
+        try {
+            // JFormattedTextField para mostrar la fecha
+            txtFechaNacimiento = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
+            txtFechaNacimiento.setColumns(10);  // Establece el tamaño del campo
+            txtFechaNacimiento.setValue(new Date());  // Pone la fecha actual como valor por defecto
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        panelPrincipal.add(txtFechaNacimiento, gbc);
+        y++;
+
+        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Especialidad:"), gbc);
+        gbc.gridx = 1; cmbEspecialidad = new JComboBox<>(); panelPrincipal.add(cmbEspecialidad, gbc); y++;
+
+        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Día:"), gbc);
+        gbc.gridx = 1; cmbDia = new JComboBox<>(new String[] {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"}); panelPrincipal.add(cmbDia, gbc); y++;
+
+        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Hora Inicio:"), gbc);
+        gbc.gridx = 1; cmbHoraInicio = new JComboBox<>(new String[] {"08:00:00", "09:00:00", "10:00:00", "11:00:00", "12:00:00"}); panelPrincipal.add(cmbHoraInicio, gbc); y++;
+
+        gbc.gridx = 0; gbc.gridy = y; panelPrincipal.add(new JLabel("Hora Fin:"), gbc);
+        gbc.gridx = 1; cmbHoraFin = new JComboBox<>(new String[] {"12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00"}); panelPrincipal.add(cmbHoraFin, gbc); y++;
+
         btnGuardar = new JButton("Guardar");
         btnCancelar = new JButton("Cancelar");
-
         btnCancelar.addActionListener(e -> dispose());
         btnGuardar.addActionListener(e -> guardarNuevoOdontologo());
 
@@ -101,12 +107,21 @@ public class OdontologoRegistrarDialog extends JDialog {
         setPreferredSize(new Dimension(650, 750));
         pack();
         setLocationRelativeTo(parent);
+
+        cargarEspecialidades();
+    }
+
+    private void cargarEspecialidades() {
+        List<String> especialidades = Odontologo.obtenerEspecialidadesDisponibles();
+        for (String especialidad : especialidades) {
+            cmbEspecialidad.addItem(especialidad);
+        }
     }
 
     private void guardarNuevoOdontologo() {
         OdontologoDetalleModelo nuevo = new OdontologoDetalleModelo();
-
         String dniTexto = txtDni.getText().trim();
+
         if (dniTexto.isEmpty() || !dniTexto.matches("\\d+")) {
             mostrarError("DNI inválido. Debe contener solo números.");
             return;
@@ -138,10 +153,24 @@ public class OdontologoRegistrarDialog extends JDialog {
         nuevo.setApellido(txtApellido.getText().trim());
         nuevo.setTelefono(txtTelefono.getText().trim());
         nuevo.setEmail(txtEmail.getText().trim());
-        nuevo.setFechaNacimiento((Date) txtFechaNacimiento.getValue());
+
+        // Convertir la fecha de nacimiento
+        Date fechaNacimiento = (Date) txtFechaNacimiento.getValue();
+        if (fechaNacimiento != null) {
+            nuevo.setFechaNacimiento(fechaNacimiento);
+        } else {
+            mostrarError("La fecha de nacimiento no es válida.");
+            return;
+        }
+
         nuevo.setMatricula(txtMatricula.getText().trim());
         nuevo.setUsuario(txtUsuario.getText().trim());
         nuevo.setContrasenia(new String(txtContrasena.getPassword()).trim());
+
+        String especialidad = (String) cmbEspecialidad.getSelectedItem();
+        nuevo.setEspecialidad(especialidad);
+        nuevo.setDia((String) cmbDia.getSelectedItem());
+        nuevo.setHorario(cmbHoraInicio.getSelectedItem() + " - " + cmbHoraFin.getSelectedItem());
 
         boolean exito = controlador.crearOdontologo(nuevo);
         if (exito) {
