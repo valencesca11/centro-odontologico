@@ -4,6 +4,8 @@ import com.mycompany.centroodontologico.vista.MenuAdministracionFrame;
 import com.mycompany.centroodontologico.controlador.EspecialidadControlador;
 import com.mycompany.centroodontologico.controlador.OdontologoControlador;
 import com.mycompany.centroodontologico.controlador.PacienteControlador;
+import com.mycompany.centroodontologico.controlador.TurnoControlador;
+import com.mycompany.centroodontologico.controlador.PagoControlador; // ⬅️ Importación agregada
 
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
@@ -19,7 +21,10 @@ public class MenuAdministracionControlador implements ActionListener {
         vista.setVisible(true);
     }
 
-    // Método mostrar() que puede ser llamado desde otros controladores
+    public MenuAdministracionFrame getVista() {
+        return vista;
+    }
+
     public void mostrar() {
         if (vista == null || !vista.isDisplayable()) {
             vista = new MenuAdministracionFrame();
@@ -34,30 +39,30 @@ public class MenuAdministracionControlador implements ActionListener {
 
         if (source == vista.getBtnEspecialidad()) {
             new EspecialidadControlador();
-            vista.dispose(); // Cierra el menú actual
+            vista.dispose();
         }
 
-        if (source == vista.getBtnOdontologo()) {
+        else if (source == vista.getBtnOdontologo()) {
             new OdontologoControlador();
             vista.dispose();
         }
 
-        if (source == vista.getBtnPacientes()) {
-            new PacienteControlador(vista); // ✅ Corregido: no pasamos vista si no hace falta
+        else if (source == vista.getBtnPacientes()) {
+            new PacienteControlador(vista);
             vista.dispose();
         }
 
-        if (source == vista.getBtnTurnos()) {
-            JOptionPane.showMessageDialog(vista, "Funcionalidad de Turnos aún no implementada.");
+        else if (source == vista.getBtnTurnos()) {
+            new TurnoControlador(this);
+            vista.setVisible(false);
         }
 
-        if (source == vista.getBtnPagos()) {
-            JOptionPane.showMessageDialog(vista, "Funcionalidad de Pagos aún no implementada.");
+        else if (source == vista.getBtnPagos()) {
+            new PagoControlador(); // ✅ Llama al controlador que abre la interfaz de pagos
         }
 
-        if (source == vista.getBtnCerrarSesion()) {
+        else if (source == vista.getBtnCerrarSesion()) {
             vista.dispose();
-            // Aquí podrías redirigir al login si lo tienes implementado
         }
     }
 }

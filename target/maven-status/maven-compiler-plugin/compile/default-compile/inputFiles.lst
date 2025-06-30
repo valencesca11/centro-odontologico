@@ -5,12 +5,15 @@ C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\controlador\OdontologoControlador.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\controlador\OdontologoDetalleControlador.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\controlador\PacienteControlador.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\controlador\PagoControlador.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\controlador\TurnoControlador.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\Especialidad.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\HorarioModelo.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\Odontologo.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\OdontologoDetalleModelo.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\Paciente.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\PacienteModelo.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\TurnoModelo.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\modelo\Usuario.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\CrearEspecialidadDialog.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\EspecialidadFrame.java
@@ -24,5 +27,9 @@ C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\PacienteDetalleDialog.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\PacienteGestionFrame.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\PacienteRegistrarDialog.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\PagoFrame.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\TurnoFrame.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\TurnoModificarDialog.java
+C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\com\mycompany\centroodontologico\vista\TurnoRegistrarDialog.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\conexionBD\conexionBD.java
 C:\Users\VICTUS\Documents\NetBeansProjects\centroOdontologico\src\main\java\conexionBD\testBD.java
